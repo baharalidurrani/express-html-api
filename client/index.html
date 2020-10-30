@@ -12,11 +12,22 @@
     <h1>Coin Analyzer</h1>
 
     <label for="startDate">From:</label>
-    <input type="date" name="START-DATE" id="startDate" />
+    <input
+      type="date"
+      name="START-DATE"
+      id="startDate"
+      onchange="startChange(this)"
+    />
     <label for="endDate">To:</label>
-    <input type="date" name="END-DATE" id="endDate" />
+    <input
+      type="date"
+      name="END-DATE"
+      id="endDate"
+      onchange="endChange(this)"
+    />
 
     <input type="button" value="Submit" onclick="historic()" />
+    <input type="button" value="Reset" onclick="reset()" />
 
     <canvas id="myChart"></canvas>
 

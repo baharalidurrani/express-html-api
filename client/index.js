@@ -1,3 +1,22 @@
+var startDate = document.getElementById("startDate");
+var endDate = document.getElementById("endDate");
+function reset() {
+  //@ts-ignore
+  startDate.max = endDate.max = new Date().toISOString().split("T")[0];
+  //@ts-ignore
+  startDate.min = endDate.min = "2014-01-01";
+
+  // latest();
+}
+reset();
+
+function startChange(e) {
+  console.log("start change", e.value);
+}
+function endChange(e) {
+  console.log("end change", e.value);
+}
+
 var config = {
   type: "line",
 
@@ -47,6 +66,7 @@ var config = {
 };
 
 var ctx = document.getElementsByTagName("canvas")[0].getContext("2d");
+//@ts-ignore
 var chart = new Chart(ctx, config);
 
 async function latest() {
@@ -59,7 +79,6 @@ async function latest() {
   config.data.datasets[0].data = jsonData.map((r) => r.price);
   chart.update();
 }
-latest();
 
 async function historic() {
   console.log("click");
