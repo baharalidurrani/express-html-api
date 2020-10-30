@@ -24,6 +24,7 @@ app.get("/api/latest", async (req, res) => {
 
   const apiRes = await nFetch(latest);
   const jsonData = await apiRes.json();
+  console.log("API Allowance Remaining", jsonData.allowance.remaining);
   const formatted = processResult(jsonData.result, INTERVAL);
 
   res.send(formatted);
@@ -36,6 +37,7 @@ app.get("/api/historic", async (req, res) => {
 
   const apiRes = await nFetch(history);
   const jsonData = await apiRes.json();
+  console.log("API Allowance Remaining", jsonData.allowance.remaining);
   const formatted = processResult(jsonData.result, INTERVAL);
 
   res.send(formatted);

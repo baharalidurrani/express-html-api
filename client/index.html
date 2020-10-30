@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#131411" />
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="Chart.min.css" />
     <title>Coin Analyzer</title>
   </head>
   <body>
@@ -14,8 +15,12 @@
     <input type="date" name="START-DATE" id="startDate" />
     <label for="endDate">To:</label>
     <input type="date" name="END-DATE" id="endDate" />
-    <input type="button" value="Submit" />
 
+    <input type="button" value="Submit" onclick="historic()" />
+
+    <canvas id="myChart"></canvas>
+
+    <script src="Chart.bundle.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
