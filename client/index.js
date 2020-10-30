@@ -1,10 +1,13 @@
 var startDate = document.getElementById("startDate");
 var endDate = document.getElementById("endDate");
 function reset() {
+  const today = new Date().toISOString().split("T")[0];
   //@ts-ignore
-  startDate.max = endDate.max = new Date().toISOString().split("T")[0];
+  startDate.max = endDate.max = today;
   //@ts-ignore
   startDate.min = endDate.min = "2014-01-01";
+  // @ts-ignore
+  endDate.value = today;
 
   latest();
 }
