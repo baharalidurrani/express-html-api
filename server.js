@@ -7,17 +7,14 @@ var bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
-app.use(express.static(__dirname + "/client"));
-
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-
 //body parser
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+app.use(express.static(__dirname + "/client"));
+
 app.get("/", (req, res) => {
-    res.render("index.ejs", {});
+    res.sendFile(path.join(__dirname + "client" + "index.html"));
 });
 
 
@@ -28,7 +25,7 @@ app.get("/api/current", async(req, res) => {
     const historic = `https://rest.coinapi.io/v1/ohlcv/BTC/USD/history?time_start=${'2016-01-01T00:00:00'}&time_end=${'2016-01-01T00:00:00'}`;
 
     const headers = {
-        "X-CoinAPI-Key": "7922AEFB-B522-4E06-9720-2298F282EA12"
+        "X-CoinAPI-Key": "CE4D2C4D-2EE1-4EB3-A6F0-4D9C5CFC2279"
     };
 
     const apiRes = await nFetch(latest, { headers });
@@ -40,15 +37,15 @@ app.get("/api/current", async(req, res) => {
 
 app.post("/api/current/post", urlencodedParser, async(req, res) => {
 
-    const data = fetch(`https://rest.coinapi.io/v1/ohlcv/BTC/USD/history?time_start=${req.body.start}&time_end=${req.body.end}`, {
-        method: 'POST', // or 'PUT'
-        headers: {
-            "X-CoinAPI-Key": "7922AEFB-B522-4E06-9720-2298F282EA12"
-        },
-        body: JSON.stringify(data),
-    })
+    const historic = `https://rest.coinapi.io/v1/ohlcv/BTC/USD/history?time_start=${req.body.start}&time_end=${req.body.end}`;
+
+    const headers = {
+        "X-CoinAPI-Key": "CE4D2C4D-2EE1-4EB3-A6F0-4D9C5CFC2279"
+    };
+
+    const apiRes = await nFetch(historic, { method: 'POST', headers: headers });
     const jsonData = await apiRes.json();
-    console.log(jsonData);
+    res.send(jsonData);
 
 })
 

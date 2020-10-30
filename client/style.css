@@ -1,0 +1,49 @@
+body {
+    background-image: linear-gradient(#f46b45, #eea849);
+}
+
+.heading {
+    text-align: center;
+    color: white;
+    font-size: 2.5em;
+    font-family: Roboto;
+}
+
+.filter {
+    text-align: center;
+    padding: 1rem;
+}
+
+label {
+    display: inline;
+    font-size: 1rem;
+    font-family: Roboto;
+}
+
+.container {
+    align-items: center;
+    max-height: 420px;
+    padding: 1rem;
+    background-color: #f3c0a9;
+    position: relative;
+}
+
+.btn {
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+input {
+    padding: 0.2rem;
+}
+
+.btn:hover {
+    background-color: #f3c0a9;
+    color: rgb(8, 5, 5);
+}

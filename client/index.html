@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bitcoin Analyzer</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <h1 class="heading">Bitcoin Analyzer</h1>
+
+    <div class="filter">
+
+        <form>
+            <label for="start">Start date:</label>
+
+            <input type="date" id="start" name="startDate">
+
+            <label for="End">End date:</label>
+
+            <input type="date" id="end" name="endDate">
+            <button class="btn" type="submit" onclick="getHistory()">Get data</button>
+        </form>
+    </div>
+
+    <div class="container" style="align-content: center;">
+        <canvas role="img" width="964" height="320" style="overflow: hidden;" id="myChart">
+
+        </canvas>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="index.js"></script>
+
+</body>
+
+</html>
