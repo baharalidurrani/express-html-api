@@ -6,7 +6,7 @@ function reset() {
   //@ts-ignore
   startDate.min = endDate.min = "2014-01-01";
 
-  // latest();
+  latest();
 }
 reset();
 
@@ -89,5 +89,20 @@ async function latest() {
 }
 
 async function historic() {
-  console.log("click");
+  // @ts-ignore
+  const startMS = new Date(startDate.value).getTime();
+  const start = parseInt((startMS / 1000).toFixed(0));
+  // @ts-ignore
+  const endMS = new Date(endDate.value).getTime();
+  const end = parseInt((endMS / 1000).toFixed(0));
+
+  const url = `api/historic?start=${start}&end=${end}`;
+  const res = await fetch(url);
+  const jsonData = await res.json();
+  console.log(jsonData);
+  config.data.labels = jsonData.map((r) =>
+    new Date(r.date * 1000).toISOString()
+  );
+  config.data.datasets[0].data = jsonData.map((r) => r.price);
+  chart.update();
 }
