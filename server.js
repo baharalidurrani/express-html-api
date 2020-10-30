@@ -1,10 +1,15 @@
-// import express from "express";
 const express = require("express");
 const path = require("path");
 const nFetch = require("node-fetch");
 
+const { processResult } = require("./utils/utils");
+
+const PORT = 3000;
+const EXCHANGE = "kraken";
+const PAIR = "btcusd";
+const INTERVAL = 3600;
+
 const app = express();
-const port = 3000;
 
 app.use(express.static(__dirname + "/client"));
 
@@ -12,22 +17,30 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "client" + "index.html"));
 });
 
-app.get("/api/current", async (req, res) => {
-  const endpoint = `https://rest.coinapi.io/v1/exchangerate/BTC/USD`;
-  const period = `1DAY`;
-  const latest = `https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/latest?period_id=${period}`;
-  const historic = `https://rest.coinapi.io/v1/ohlcv/BTC/USD/history?period_id=${period}&time_start=2016-01-01T00:00:00`;
+app.get("/api/latest", async (req, res) => {
+  const end = parseInt((new Date().getTime() / 1000).toFixed(0));
+  const start = end - 86400;
+  const latest = `https://api.cryptowat.ch/markets/${EXCHANGE}/${PAIR}/ohlc?after=${start}&before=${end}&periods=${INTERVAL}`;
 
-  const headers = {
-    "X-CoinAPI-Key": "7922AEFB-B522-4E06-9720-2298F282EA12"
-  };
-
-  const apiRes = await nFetch(latest, { headers });
+  const apiRes = await nFetch(latest);
   const jsonData = await apiRes.json();
+  const formatted = processResult(jsonData.result, INTERVAL);
 
-  res.send(jsonData);
+  res.send(formatted);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.get("/api/historic", async (req, res) => {
+  const start = req.query.start;
+  const end = req.query.end;
+  const history = `https://api.cryptowat.ch/markets/${EXCHANGE}/${PAIR}/ohlc?after=${start}&before=${end}&periods=${INTERVAL}`;
+
+  const apiRes = await nFetch(history);
+  const jsonData = await apiRes.json();
+  const formatted = processResult(jsonData.result, INTERVAL);
+
+  res.send(formatted);
+});
+
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://127.0.0.1:${PORT}`);
 });
