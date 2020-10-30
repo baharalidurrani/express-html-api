@@ -11,10 +11,18 @@ function reset() {
 reset();
 
 function startChange(e) {
-  console.log("start change", e.value);
+  let ms = new Date(e.value).getTime();
+  ms = ms + 24 * 60 * 60 * 1000;
+  const min = new Date(ms).toISOString().split("T")[0];
+  //@ts-ignore
+  endDate.min = min;
 }
 function endChange(e) {
-  console.log("end change", e.value);
+  let ms = new Date(e.value).getTime();
+  ms = ms - 24 * 60 * 60 * 1000;
+  const max = new Date(ms).toISOString().split("T")[0];
+  //@ts-ignore
+  startDate.max = max;
 }
 
 var config = {
