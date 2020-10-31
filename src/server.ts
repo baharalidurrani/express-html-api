@@ -1,8 +1,8 @@
-const express = require("express");
-const path = require("path");
-const nFetch = require("node-fetch");
+import express from "express";
+import path from "path";
+import nFetch from "node-fetch";
 
-const { processResult } = require("./utils/utils");
+import { processResult } from "./utils/utils";
 
 const PORT = 3000;
 const EXCHANGE = "kraken";
@@ -11,7 +11,7 @@ const INTERVAL = 3600;
 
 const app = express();
 
-app.use(express.static(__dirname + "/client"));
+app.use(express.static(__dirname + "./../client"));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "client" + "index.html"));
