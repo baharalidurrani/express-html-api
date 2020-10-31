@@ -1,6 +1,7 @@
 import express from "express";
-import path from "path";
 import nFetch from "node-fetch";
+import path from "path";
+import { Cryptowat } from "./types/api";
 
 import { processResult } from "./utils/utils";
 
@@ -10,7 +11,6 @@ const PAIR = "btcusd";
 const INTERVAL = 3600;
 
 const app = express();
-
 app.use(express.static(__dirname + "./../client"));
 
 app.get("/", (req, res) => {
@@ -23,7 +23,7 @@ app.get("/api/latest", async (req, res) => {
   const latest = `https://api.cryptowat.ch/markets/${EXCHANGE}/${PAIR}/ohlc?after=${start}&before=${end}&periods=${INTERVAL}`;
 
   const apiRes = await nFetch(latest);
-  const jsonData = await apiRes.json();
+  const jsonData = (await apiRes.json()) as Cryptowat;
   console.log("API Allowance Remaining", jsonData.allowance.remaining);
   const formatted = processResult(jsonData.result, INTERVAL);
 
@@ -36,7 +36,7 @@ app.get("/api/historic", async (req, res) => {
   const history = `https://api.cryptowat.ch/markets/${EXCHANGE}/${PAIR}/ohlc?after=${start}&before=${end}&periods=${INTERVAL}`;
 
   const apiRes = await nFetch(history);
-  const jsonData = await apiRes.json();
+  const jsonData = (await apiRes.json()) as Cryptowat;
   console.log("API Allowance Remaining", jsonData.allowance.remaining);
   const formatted = processResult(jsonData.result, INTERVAL);
 
