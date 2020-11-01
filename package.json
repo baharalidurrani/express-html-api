@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node-dev --respawn ./src/server.ts",
     "debug": "ts-node-dev --respawn --inspect=5858 ./src/server.ts",
-    "build": "tsc",
+    "build": "rm -rf dist/ && tsc",
     "serve": "node ./dist/server.js"
   },
   "dependencies": {

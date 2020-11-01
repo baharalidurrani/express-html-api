@@ -1,9 +1,9 @@
 import express from "express";
-import { homeController } from "../controller/home.controller";
+import { homeController } from "../controllers/home.controller";
 import {
   latestController,
   historicController
-} from "../controller/cryptowat.controller";
+} from "../controllers/cryptowat.controller";
 
 export const Router = express.Router();
 

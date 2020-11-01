@@ -3,8 +3,8 @@ FROM node:10.23-alpine
 WORKDIR /usr/src/app
 COPY . .
 
-RUN npm install -g typescript
 RUN npm ci
+RUN npm install -g typescript
 RUN npm run build
 
 EXPOSE 3000
