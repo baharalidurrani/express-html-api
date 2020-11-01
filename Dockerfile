@@ -4,9 +4,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm ci
-RUN npm install -g typescript
 RUN npm run build
 
 EXPOSE 3000
-
 CMD [ "npm", "run", "serve" ]
