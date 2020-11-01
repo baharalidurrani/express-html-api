@@ -1,15 +1,24 @@
 var startDate = document.getElementById("startDate");
 var endDate = document.getElementById("endDate");
 function reset() {
-  const today = new Date().toISOString().split("T")[0];
+  const now = new Date();
+  const today = now.toISOString().split("T")[0];
+  const hundred = new Date(now.getTime() - 100 * 3600000)
+    .toISOString()
+    .split("T")[0];
+
   //@ts-ignore
   startDate.max = endDate.max = today;
   //@ts-ignore
-  startDate.min = endDate.min = "2014-01-01";
+  startDate.min = "2014-01-01";
+  //@ts-ignore
+  endDate.min = hundred;
   // @ts-ignore
   endDate.value = today;
+  // @ts-ignore
+  startDate.value = hundred;
 
-  latest();
+  latest(null);
 }
 reset();
 
@@ -80,23 +89,28 @@ var ctx = document.getElementsByTagName("canvas")[0].getContext("2d");
 //@ts-ignore
 var chart = new Chart(ctx, config);
 
-async function latest() {
+async function latest(input) {
+  input ? null : (input = document.getElementById("reset"));
   try {
+    input.disabled = true;
     const res = await fetch("api/latest");
     const jsonData = await res.json();
     console.log(jsonData);
+    input.disabled = false;
     config.data.labels = jsonData.map((r) =>
       new Date(r.date * 1000).toISOString()
     );
     config.data.datasets[0].data = jsonData.map((r) => r.price);
     chart.update();
   } catch (error) {
+    input.disabled = false;
     throw error;
   }
 }
 
-async function historic() {
+async function historic(input) {
   try {
+    input.disabled = true;
     // @ts-ignore
     const startMS = new Date(startDate.value).getTime();
     const start = parseInt((startMS / 1000).toFixed(0));
@@ -108,12 +122,14 @@ async function historic() {
     const res = await fetch(url);
     const jsonData = await res.json();
     console.log(jsonData);
+    input.disabled = false;
     config.data.labels = jsonData.map((r) =>
       new Date(r.date * 1000).toISOString()
     );
     config.data.datasets[0].data = jsonData.map((r) => r.price);
     chart.update();
   } catch (error) {
+    input.disabled = false;
     throw error;
   }
 }
