@@ -81,31 +81,39 @@ var ctx = document.getElementsByTagName("canvas")[0].getContext("2d");
 var chart = new Chart(ctx, config);
 
 async function latest() {
-  const res = await fetch("api/latest");
-  const jsonData = await res.json();
-  console.log(jsonData);
-  config.data.labels = jsonData.map((r) =>
-    new Date(r.date * 1000).toISOString()
-  );
-  config.data.datasets[0].data = jsonData.map((r) => r.price);
-  chart.update();
+  try {
+    const res = await fetch("api/latest");
+    const jsonData = await res.json();
+    console.log(jsonData);
+    config.data.labels = jsonData.map((r) =>
+      new Date(r.date * 1000).toISOString()
+    );
+    config.data.datasets[0].data = jsonData.map((r) => r.price);
+    chart.update();
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function historic() {
-  // @ts-ignore
-  const startMS = new Date(startDate.value).getTime();
-  const start = parseInt((startMS / 1000).toFixed(0));
-  // @ts-ignore
-  const endMS = new Date(endDate.value).getTime();
-  const end = parseInt((endMS / 1000).toFixed(0));
+  try {
+    // @ts-ignore
+    const startMS = new Date(startDate.value).getTime();
+    const start = parseInt((startMS / 1000).toFixed(0));
+    // @ts-ignore
+    const endMS = new Date(endDate.value).getTime();
+    const end = parseInt((endMS / 1000).toFixed(0));
 
-  const url = `api/historic?start=${start}&end=${end}`;
-  const res = await fetch(url);
-  const jsonData = await res.json();
-  console.log(jsonData);
-  config.data.labels = jsonData.map((r) =>
-    new Date(r.date * 1000).toISOString()
-  );
-  config.data.datasets[0].data = jsonData.map((r) => r.price);
-  chart.update();
+    const url = `api/historic?start=${start}&end=${end}`;
+    const res = await fetch(url);
+    const jsonData = await res.json();
+    console.log(jsonData);
+    config.data.labels = jsonData.map((r) =>
+      new Date(r.date * 1000).toISOString()
+    );
+    config.data.datasets[0].data = jsonData.map((r) => r.price);
+    chart.update();
+  } catch (error) {
+    throw error;
+  }
 }
