@@ -95,7 +95,7 @@ async function latest(input) {
     input.disabled = true;
     const res = await fetch("api/latest");
     const jsonData = await res.json();
-    console.log(jsonData);
+    console.log(jsonData.length, "records retrieved");
     input.disabled = false;
     config.data.labels = jsonData.map((r) =>
       new Date(r.date * 1000).toISOString()
@@ -121,7 +121,7 @@ async function historic(input) {
     const url = `api/historic?start=${start}&end=${end}`;
     const res = await fetch(url);
     const jsonData = await res.json();
-    console.log(jsonData);
+    console.log(jsonData.length, "records retrieved");
     input.disabled = false;
     config.data.labels = jsonData.map((r) =>
       new Date(r.date * 1000).toISOString()
