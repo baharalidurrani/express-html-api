@@ -9,30 +9,54 @@
     <title>Coin Analyzer</title>
   </head>
   <body>
-    <h1>Coin Analyzer</h1>
-
-    <label for="startDate">From:</label>
-    <input
-      type="date"
-      name="START-DATE"
-      id="startDate"
-      onchange="startChange(this)"
-      value="2020-01-01"
-    />
-    <label for="endDate">To:</label>
-    <input
-      type="date"
-      name="END-DATE"
-      id="endDate"
-      onchange="endChange(this)"
-      value="2020-01-03"
-    />
-
-    <input type="button" value="Submit" onclick="historic(this)" id="submit" />
-    <input type="button" value="Reset" onclick="reset(this)" id="reset" />
-
-    <canvas id="myChart"></canvas>
-
+    <div class="wrapper">
+      <div class="container">
+        <h1>Coin Analyzer</h1>
+        <hr />
+        <section>
+          <div class="form-group">
+            <label for="startDate">From:</label>
+            <input
+              class="form-control"
+              type="date"
+              name="START-DATE"
+              id="startDate"
+              onchange="startChange(this)"
+              value="2020-01-01"
+            />
+          </div>
+          <div class="form-group">
+            <label for="endDate">To:</label>
+            <input
+              class="form-control"
+              type="date"
+              name="END-DATE"
+              id="endDate"
+              onchange="endChange(this)"
+              value="2020-01-03"
+            />
+          </div>
+          <div class="btn">
+            <input
+              class="btn-primary"
+              type="button"
+              value="Submit"
+              onclick="historic(this)"
+              id="submit"
+            />
+            <input
+              class="btn-primary"
+              type="button"
+              value="Reset"
+              onclick="reset(this)"
+              id="reset"
+            />
+          </div>
+        </section>
+        <hr />
+      </div>
+      <canvas id="myChart"></canvas>
+    </div>
     <script src="Chart.bundle.min.js"></script>
     <script src="index.js"></script>
   </body>
