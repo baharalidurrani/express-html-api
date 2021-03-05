@@ -6,7 +6,9 @@
     "start": "ts-node-dev --respawn ./src/server.ts",
     "debug": "ts-node-dev --respawn --inspect=5858 ./src/server.ts",
     "build": "rm -rf dist/ && npx tsc",
-    "serve": "node ./dist/server.js"
+    "serve": "node ./dist/server.js",
+    "docker-build": "docker build -t exp-html-api .",
+    "docker-run": "docker run -p 3000:3000 exp-html-api"
   },
   "dependencies": {
     "express": "^4.17.1",

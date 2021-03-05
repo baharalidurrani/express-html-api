@@ -1,7 +1,7 @@
 import express from "express";
 import { Router } from "./routes/root.routes";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.static("./client"));
