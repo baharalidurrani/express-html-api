@@ -1,5 +1,5 @@
-export interface Cryptowat {
-  result: ResultData;
+export interface ICryptoWatch {
+  result: IResultData;
   allowance: {
     cost: number;
     remaining: number;
@@ -7,6 +7,19 @@ export interface Cryptowat {
   };
 }
 
-export interface ResultData {
+/**
+ * example IResultData:
+ *  {
+ *    '3600': [
+ *              [1, 2, 3],
+ *              [4, 5, 6]
+ *            ],
+ *    '1800': [
+ *              [1, 2, 3],
+ *              [4, 5, 6]
+ *            ]
+ *  }
+ */
+export interface IResultData {
   [interval: string]: number[][];
 }

@@ -1,7 +1,7 @@
 import nFetch from "node-fetch";
 import { Request, Response } from "express";
 import { processResult } from "../utils/utils";
-import { Cryptowat } from "../types/api";
+import { ICryptoWatch } from "../types/api";
 
 const EXCHANGE = "kraken";
 const PAIR = "btcusd";
@@ -36,7 +36,7 @@ export const latestController = async (req: Request, res: Response) => {
     const latest = `https://api.cryptowat.ch/markets/${EXCHANGE}/${PAIR}/ohlc?after=${start}&before=${end}&periods=${INTERVAL}`;
 
     const apiRes = await nFetch(latest);
-    const jsonData = (await apiRes.json()) as Cryptowat;
+    const jsonData = (await apiRes.json()) as ICryptoWatch;
     console.log("API Allowance Remaining", jsonData.allowance.remaining);
     const formatted = processResult(jsonData.result, INTERVAL);
 
@@ -56,8 +56,8 @@ export const historicController = async (req: Request, res: Response) => {
     const history = `https://api.cryptowat.ch/markets/${EXCHANGE}/${PAIR}/ohlc?after=${start}&before=${end}&periods=${interval}`;
 
     const apiRes = await nFetch(history);
-    const jsonData = (await apiRes.json()) as Cryptowat;
-    console.log("API Allowance Remaining", jsonData.allowance.remaining);
+    const jsonData = (await apiRes.json()) as ICryptoWatch;
+    console.log("API Allowance Remaining", jsonData);
     const formatted = processResult(jsonData.result, interval);
 
     res.send(formatted);
