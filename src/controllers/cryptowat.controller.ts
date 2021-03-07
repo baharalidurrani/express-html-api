@@ -20,7 +20,7 @@ const CRYPTOWATCH_INTERVALS = [
   43200,
   86400,
   259200,
-  604800
+  604800,
 ];
 const optimalInterval = (start: number, end: number) => {
   const goal = (end - start) / 50;
@@ -57,7 +57,7 @@ export const historicController = async (req: Request, res: Response) => {
 
     const apiRes = await nFetch(history);
     const jsonData = (await apiRes.json()) as ICryptoWatch;
-    console.log("API Allowance Remaining", jsonData);
+    console.log("API Allowance Remaining", jsonData.allowance.remaining);
     const formatted = processResult(jsonData.result, interval);
 
     res.send(formatted);
