@@ -1,4 +1,5 @@
 FROM node:alpine
+# RUN apk add g++ make python
 
 WORKDIR /usr/src/app
 
